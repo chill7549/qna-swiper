@@ -1,13 +1,30 @@
-# ⚡ Q&A SWIPER - 틱톡 & 틴더 스타일 앙케이트 프로그램
+# ⚡ Q&A SWIPER - 틱톡 & 틴더 스타일 앙케이트 웹 앱
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
-[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
-[![PWA Ready](https://img.shields.io/badge/PWA-iPad%20%26%20Mobile-brightgreen.svg)](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
+[![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live%20Demo-brightgreen.svg?style=flat&logo=github)](https://chill7549.github.io/qna-swiper/)
+[![iPad Ready](https://img.shields.io/badge/PWA-iPad%20%26%20Mobile-00f2fe.svg)](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps)
 
 > **Q&A SWIPER**는 틱톡(TikTok)과 틴더(Tinder) 특유의 감각적인 3D 카드 스와이프 제스처를 결합한 **인터랙티브 앙케이트 / 설문조사 웹 애플리케이션**입니다.
 > PC, 아이패드(iPadOS), 타블렛 및 모바일 환경에서 별도 서버 설치 없이 브라우저 단독으로 즉시 작동합니다.
+
+🌐 **라이브 웹 서비스 주소**: [https://chill7549.github.io/qna-swiper/](https://chill7549.github.io/qna-swiper/)
+
+---
+
+## 📱 아이패드(iPad)에서 깃허브를 통해 웹 앱으로 실행하는 방법
+
+### 1단계: GitHub Pages 호스팅 설정 (1회만 클릭)
+1. 깃허브 리포지토리 [https://github.com/chill7549/qna-swiper](https://github.com/chill7549/qna-swiper) 접속
+2. 상단 메뉴의 **[Settings]** 클릭 -> 좌측 메뉴에서 **[Pages]** 클릭
+3. `Build and deployment` 항목에서:
+   * **Source**: `Deploy from a branch` 선택
+   * **Branch**: `main` 선택, 폴더 `/(root)` 유지 후 **[Save]** 버튼 클릭
+4. 30초~1분 후 웹사이트 주소가 자동 생성됩니다: **`https://chill7549.github.io/qna-swiper/`**
+
+### 2단계: 아이패드(iPad)에서 실행 및 홈 화면 앱으로 설치
+1. 아이패드의 **Safari 브라우저**를 열고 `https://chill7549.github.io/qna-swiper/` 에 접속합니다.
+2. Safari 상단 우측의 **[공유 버튼 📤]** 클릭 -> **[홈 화면에 추가 ➕]** 선택
+3. 아이패드 바탕화면에 **Q&A SWIPER 전용 앱 아이콘**이 생성되며, 누르면 주소창 없는 **독립 풀스크린 앱**으로 작동합니다!
 
 ---
 
@@ -42,32 +59,5 @@
 
 ---
 
-## 📱 아이패드(iPad) & 모바일 PWA 사용 가이드
-
-**Q&A SWIPER**는 iPadOS Touch Retina 디스플레이 및 PWA 메타 태그가 완료되어 있습니다.
-
-### 로컬 실행 (동일 Wi-Fi 환경)
-```bash
-npx http-server ./ -p 8080
-```
-1. PC의 IP 주소 확인 (`ipconfig` -> 예: `192.168.0.15`).
-2. 아이패드 Safari에서 `http://192.168.0.15:8080` 접속.
-3. Safari 공유 버튼 `[공유 📤]` -> `[홈 화면에 추가 ➕]` 선택 시 **독립된 풀스크린 앱**으로 설치됩니다.
-
----
-
-## 📂 프로젝트 구조
-
-```
-tiktok-survey-app/
-├── index.html       # 애플리케이션 HTML5 레이아웃 및 PWA 메타 태그
-├── styles.css       # Glassmorphism, 3D 카드 스택, iOS 터치 반응형 스타일시트
-├── app.js           # 3D 스와이프 물리 엔진, 캐럿 이모지 생성기, 데이터 통계 엔진
-└── README.md        # 프로젝트 설명서
-```
-
----
-
 ## 📄 라이선스
-
 MIT License - 자유롭게 수정 및 배포가 가능합니다.
