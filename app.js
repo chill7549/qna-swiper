@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Q&A SWIPER Application - Touch, 8 Choices, Open Textbox & Sharing Engine
+   Q&A SWIPER Application - Answer Order Update (1st: Left/No, 2nd: Right/Yes)
    ========================================================================== */
 
 // Curated Pastel Gradient Presets
@@ -22,10 +22,10 @@ const IOS_EMOJI_PAGES = [
   ['🌈', '🌸', '🍀', '🐶', '🐱', '🦊', '🐻', '🐼', '🦁', '🐯', '🦄', '🐝', '🐙', '🐬', '🌺', '☀️', '🌙', '⚡', '❄️', '🎈', '🎁', '🎮', '🎲', '🎨', '🎭', '🔮', '📱', '💻', '🏖️', '✈️']
 ];
 
-// Extended 8 Choice Directions Template
+// Reordered Default Choices: 1st Left/No (←), 2nd Right/Yes (→)
 const DEFAULT_CHOICES = [
-  { dir: 'RIGHT', label: '예', emoji: '💚', color: '#10b981' },
   { dir: 'LEFT', label: '아니오', emoji: '❌', color: '#f43f5e' },
+  { dir: 'RIGHT', label: '예', emoji: '💚', color: '#10b981' },
   { dir: 'UP', label: '글쎄요', emoji: '💙', color: '#3b82f6' },
   { dir: 'DOWN', label: '상관없음', emoji: '💜', color: '#a855f7' },
   { dir: 'OPTION_5', label: '5번 대답', emoji: '🍊', color: '#f59e0b' },
@@ -34,32 +34,32 @@ const DEFAULT_CHOICES = [
   { dir: 'OPTION_8', label: '8번 대답', emoji: '🔮', color: '#8b5cf6' }
 ];
 
-// Built-in Preset Decks
+// Built-in Preset Decks (Updated for 1st Left, 2nd Right)
 const BUILTIN_PRESETS = {
   balance: {
     name: "🔥 밸런스 게임 덱",
     cards: [
       {
-        id: 'b1', text: "탕수육 부먹 vs 찍먹, 나는 찍먹이다!", answerCount: 2, hasTextResponse: false,
+        id: 'b1', text: "탕수육 부먹 vs 찍먹, 당신의 선택은?", answerCount: 2, hasTextResponse: false,
         choices: [
-          { dir: 'RIGHT', label: '찍먹', emoji: '💚', color: '#10b981' },
-          { dir: 'LEFT', label: '부먹', emoji: '❌', color: '#f43f5e' }
+          { dir: 'LEFT', label: '부먹', emoji: '❌', color: '#f43f5e' },
+          { dir: 'RIGHT', label: '찍먹', emoji: '💚', color: '#10b981' }
         ],
         fontSizePx: 28, alignment: "center", textColor: "#ffffff", bgType: "pastel", pastelIndex: 0
       },
       {
         id: 'b2', text: "평생 사과만 먹기 vs 평생 바나나만 먹기", answerCount: 2, hasTextResponse: false,
         choices: [
-          { dir: 'RIGHT', label: '사과', emoji: '🍎', color: '#10b981' },
-          { dir: 'LEFT', label: '바나나', emoji: '🍌', color: '#f43f5e' }
+          { dir: 'LEFT', label: '바나나', emoji: '🍌', color: '#f43f5e' },
+          { dir: 'RIGHT', label: '사과', emoji: '🍎', color: '#10b981' }
         ],
         fontSizePx: 30, alignment: "center", textColor: "#ffffff", bgType: "pastel", pastelIndex: 1
       },
       {
         id: 'b3', text: "100억 받고 스마트폰 금지 vs 지금처럼 살기", answerCount: 2, hasTextResponse: false,
         choices: [
-          { dir: 'RIGHT', label: '100억', emoji: '💰', color: '#10b981' },
-          { dir: 'LEFT', label: '스마트폰', emoji: '📱', color: '#f43f5e' }
+          { dir: 'LEFT', label: '지금처럼 살기', emoji: '📱', color: '#f43f5e' },
+          { dir: 'RIGHT', label: '100억 받기', emoji: '💰', color: '#10b981' }
         ],
         fontSizePx: 26, alignment: "center", textColor: "#ffffff", bgType: "pastel", pastelIndex: 2
       }
@@ -71,8 +71,8 @@ const BUILTIN_PRESETS = {
       {
         id: 'f1', text: "오늘 점심 최애 메뉴는 무엇인가요?", answerCount: 3, hasTextResponse: true,
         choices: [
-          { dir: 'RIGHT', label: '치킨/피자', emoji: '🍕', color: '#10b981' },
           { dir: 'LEFT', label: '한식/국물', emoji: '🍜', color: '#f43f5e' },
+          { dir: 'RIGHT', label: '치킨/피자', emoji: '🍕', color: '#10b981' },
           { dir: 'UP', label: '일식/초밥', emoji: '🍣', color: '#3b82f6' }
         ],
         fontSizePx: 28, alignment: "center", textColor: "#ffffff", bgType: "pastel", pastelIndex: 3
@@ -85,8 +85,8 @@ const BUILTIN_PRESETS = {
       {
         id: 'c1', text: "연인 사이 스마트폰 비밀번호에 대한 의견은?", answerCount: 4, hasTextResponse: false,
         choices: [
-          { dir: 'RIGHT', label: '전면 공개', emoji: '🔓', color: '#10b981' },
           { dir: 'LEFT', label: '절대 비공개', emoji: '🔒', color: '#f43f5e' },
+          { dir: 'RIGHT', label: '전면 공개', emoji: '🔓', color: '#10b981' },
           { dir: 'UP', label: '상호 합의', emoji: '🤝', color: '#3b82f6' },
           { dir: 'DOWN', label: '관심 없음', emoji: '🤷', color: '#a855f7' }
         ],
@@ -217,7 +217,7 @@ function generateShareableLink() {
 function exportDeckAsJson() {
   const deckData = {
     name: state.currentDeckName || '나만의 덱',
-    version: '5.0',
+    version: '6.1',
     cards: state.cards
   };
   const jsonStr = JSON.stringify(deckData, null, 2);
@@ -357,7 +357,7 @@ function switchMode(mode) {
 }
 
 /* ==========================================================================
-   MODE 1: QUESTIONER MODULE (UP TO 8 CHOICES & OPEN TEXTBOX TOGGLE)
+   MODE 1: QUESTIONER MODULE
    ========================================================================== */
 
 function initQuestionerEvents() {
@@ -477,7 +477,6 @@ function initQuestionerEvents() {
     });
   });
 
-  // REQUIREMENT 1: Answer Count Slider Expanded from 2 to 8!
   const answerCountSlider = document.getElementById('answer-count-slider');
   answerCountSlider.addEventListener('input', (e) => {
     const count = parseInt(e.target.value, 10);
@@ -492,7 +491,6 @@ function initQuestionerEvents() {
     }
   });
 
-  // REQUIREMENT 2: Open-Ended Typing Response Box ON/OFF Toggle
   const toggleTextResponse = document.getElementById('toggle-text-response');
   toggleTextResponse.addEventListener('change', (e) => {
     const activeCard = getActiveCard();
@@ -822,8 +820,9 @@ function renderAnswersConfigBar() {
 
   ensureCardChoices(activeCard, count);
 
+  // Direction display label tags: 1st Left(←), 2nd Right(→)
   const dirNames = {
-    RIGHT: '오른쪽(→)', LEFT: '왼쪽(←)', UP: '위쪽(↑)', DOWN: '아래쪽(↓)',
+    LEFT: '왼쪽(←)', RIGHT: '오른쪽(→)', UP: '위쪽(↑)', DOWN: '아래쪽(↓)',
     OPTION_5: '대답5', OPTION_6: '대답6', OPTION_7: '대답7', OPTION_8: '대답8'
   };
 
@@ -1044,7 +1043,6 @@ function updateEditorCardPreview() {
   textElement.style.visibility = 'visible';
   textElement.className = `card-question-text align-${card.alignment || 'center'}`;
 
-  // REQUIREMENT 2: Open-Ended Typing Response Box Preview Toggle
   if (card.hasTextResponse) {
     textboxPreview.classList.remove('hidden');
   } else {
@@ -1078,7 +1076,7 @@ function updateEditorCardPreview() {
 }
 
 /* ==========================================================================
-   MODE 2: RESPONDENT MODULE (SUPPORTS 5~8 CLICKABLE BOXES & TYPED RESPONSES)
+   MODE 2: RESPONDENT MODULE (SWIPE MAPPING: ← LEFT: Index 0, → RIGHT: Index 1)
    ========================================================================== */
 
 function initRespondentEvents() {
@@ -1087,6 +1085,11 @@ function initRespondentEvents() {
     state.respondentId = e.target.value.trim() || 'USER-ANON';
   });
 
+  // KEYBOARD ARROW MAPPING:
+  // ← Left Arrow: Selects Index 0 (Direction: LEFT, default label: '아니오')
+  // → Right Arrow: Selects Index 1 (Direction: RIGHT, default label: '예')
+  // ↑ Up Arrow: Selects Index 2 (Direction: UP, default label: '글쎄요')
+  // ↓ Down Arrow: Selects Index 3 (Direction: DOWN, default label: '상관없음')
   window.addEventListener('keydown', (e) => {
     if (state.currentMode !== 'respondent') return;
     const currentCard = state.respondentStack[0];
@@ -1095,8 +1098,8 @@ function initRespondentEvents() {
     const count = currentCard.answerCount || (currentCard.choices ? currentCard.choices.length : 2);
 
     if (count <= 4) {
-      if (e.key === 'ArrowRight') executeSwipe(0);
-      else if (e.key === 'ArrowLeft') executeSwipe(1);
+      if (e.key === 'ArrowLeft') executeSwipe(0);
+      else if (e.key === 'ArrowRight') executeSwipe(1);
       else if (e.key === 'ArrowUp' && count >= 3) executeSwipe(2);
       else if (e.key === 'ArrowDown' && count === 4) executeSwipe(3);
     }
@@ -1172,7 +1175,6 @@ function renderRespondentCardStack() {
     textEl.style.textAlign = card.alignment || 'center';
     contentBox.appendChild(textEl);
 
-    // REQUIREMENT 2: Render Open-Ended Typing Field in Respondent Mode if ON!
     if (card.hasTextResponse && index === 0) {
       const input = document.createElement('input');
       input.type = 'text';
@@ -1196,23 +1198,23 @@ function renderRespondentCardStack() {
 
     const choices = card.choices || DEFAULT_CHOICES.slice(0, card.answerCount || 2);
     
-    // Only render 4-way swipe stamps if choices <= 4
+    // 2~4 Swipe Stamps Rendering (Choice Index 0: Left/stamp-no, Choice Index 1: Right/stamp-yes)
     if (card.answerCount <= 4) {
       if (choices[0]) {
-        const stampYes = document.createElement('div');
-        stampYes.className = 'swipe-stamp stamp-yes';
-        stampYes.style.borderColor = choices[0].color;
-        stampYes.style.color = choices[0].color;
-        stampYes.innerText = `${choices[0].emoji} ${choices[0].label}`;
-        cardEl.appendChild(stampYes);
-      }
-      if (choices[1]) {
         const stampNo = document.createElement('div');
         stampNo.className = 'swipe-stamp stamp-no';
-        stampNo.style.borderColor = choices[1].color;
-        stampNo.style.color = choices[1].color;
-        stampNo.innerText = `${choices[1].emoji} ${choices[1].label}`;
+        stampNo.style.borderColor = choices[0].color;
+        stampNo.style.color = choices[0].color;
+        stampNo.innerText = `${choices[0].emoji} ${choices[0].label}`;
         cardEl.appendChild(stampNo);
+      }
+      if (choices[1]) {
+        const stampYes = document.createElement('div');
+        stampYes.className = 'swipe-stamp stamp-yes';
+        stampYes.style.borderColor = choices[1].color;
+        stampYes.style.color = choices[1].color;
+        stampYes.innerText = `${choices[1].emoji} ${choices[1].label}`;
+        cardEl.appendChild(stampYes);
       }
       if (choices[2]) {
         const stampUp = document.createElement('div');
@@ -1236,7 +1238,6 @@ function renderRespondentCardStack() {
 
     if (index === 0) {
       renderSwipeActionButtons(card);
-      // Only attach swipe drag physics if answerCount <= 4
       if (card.answerCount <= 4) {
         attach4WayCardDragPhysics(cardEl, card);
       }
@@ -1244,7 +1245,6 @@ function renderRespondentCardStack() {
   });
 }
 
-// REQUIREMENT 1: 5 to 8 Answer Choices Clickable Box Grid Layout
 function renderSwipeActionButtons(card) {
   const container = document.getElementById('respondent-swipe-controls');
   container.innerHTML = '';
@@ -1253,7 +1253,6 @@ function renderSwipeActionButtons(card) {
   const choices = card.choices || DEFAULT_CHOICES.slice(0, count);
 
   if (count <= 4) {
-    // 2 to 4 choices: Standard swipe action buttons
     choices.forEach((ch, idx) => {
       const btn = document.createElement('button');
       btn.className = 'swipe-btn';
@@ -1265,7 +1264,6 @@ function renderSwipeActionButtons(card) {
       container.appendChild(btn);
     });
   } else {
-    // 5 to 8 choices: Clickable Answer Box Grid
     const boxGrid = document.createElement('div');
     boxGrid.className = 'box-choices-grid';
 
@@ -1290,13 +1288,16 @@ function renderSwipeActionButtons(card) {
   container.appendChild(undoBtn);
 }
 
+// 4-WAY DRAG PHYSICS:
+// Left drag (currentX < -threshold) -> Choice 0 (Direction: LEFT, default label: '아니오')
+// Right drag (currentX > threshold) -> Choice 1 (Direction: RIGHT, default label: '예')
 function attach4WayCardDragPhysics(cardEl, cardData) {
   let isDragging = false;
   let startX = 0; let startY = 0;
   let currentX = 0; let currentY = 0;
 
-  const stampYes = cardEl.querySelector('.stamp-yes');
   const stampNo = cardEl.querySelector('.stamp-no');
+  const stampYes = cardEl.querySelector('.stamp-yes');
   const stampUp = cardEl.querySelector('.stamp-up');
   const stampDown = cardEl.querySelector('.stamp-down');
 
@@ -1323,14 +1324,14 @@ function attach4WayCardDragPhysics(cardEl, cardData) {
 
     cardEl.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) rotate(${currentX * 0.08}deg)`;
 
-    if (stampYes) stampYes.style.opacity = 0;
     if (stampNo) stampNo.style.opacity = 0;
+    if (stampYes) stampYes.style.opacity = 0;
     if (stampUp) stampUp.style.opacity = 0;
     if (stampDown) stampDown.style.opacity = 0;
 
     if (Math.abs(currentX) > Math.abs(currentY)) {
-      if (currentX > 20 && stampYes) stampYes.style.opacity = Math.min(currentX / 100, 1);
-      else if (currentX < -20 && stampNo) stampNo.style.opacity = Math.min(Math.abs(currentX) / 100, 1);
+      if (currentX < -20 && stampNo) stampNo.style.opacity = Math.min(Math.abs(currentX) / 100, 1);
+      else if (currentX > 20 && stampYes) stampYes.style.opacity = Math.min(currentX / 100, 1);
     } else {
       if (currentY < -20 && stampUp && answerCount >= 3) stampUp.style.opacity = Math.min(Math.abs(currentY) / 100, 1);
       else if (currentY > 20 && stampDown && answerCount === 4) stampDown.style.opacity = Math.min(currentY / 100, 1);
@@ -1345,16 +1346,16 @@ function attach4WayCardDragPhysics(cardEl, cardData) {
     const threshold = 90;
 
     if (Math.abs(currentX) > Math.abs(currentY)) {
-      if (currentX > threshold) { executeSwipe(0); return; }
-      else if (currentX < -threshold) { executeSwipe(1); return; }
+      if (currentX < -threshold) { executeSwipe(0); return; } // Left -> Choice 0 (아니오)
+      else if (currentX > threshold) { executeSwipe(1); return; } // Right -> Choice 1 (예)
     } else {
       if (currentY < -threshold && answerCount >= 3) { executeSwipe(2); return; }
       else if (currentY > threshold && answerCount === 4) { executeSwipe(3); return; }
     }
 
     cardEl.style.transform = 'translate3d(0, 0, 0) rotate(0deg)';
-    if (stampYes) stampYes.style.opacity = 0;
     if (stampNo) stampNo.style.opacity = 0;
+    if (stampYes) stampYes.style.opacity = 0;
     if (stampUp) stampUp.style.opacity = 0;
     if (stampDown) stampDown.style.opacity = 0;
   };
@@ -1377,15 +1378,16 @@ function executeSwipe(choiceIdx) {
 
   if (!topCardEl) return;
 
+  // Flight vectors: Index 0 is Left (-1000, 0), Index 1 is Right (1000, 0)
   const flyDirs = [
-    { x: 1000, y: 0, r: 45 },
-    { x: -1000, y: 0, r: -45 },
-    { x: 0, y: -1000, r: 0 },
-    { x: 0, y: 1000, r: 0 },
-    { x: 500, y: 500, r: 25 },
+    { x: -1000, y: 0, r: -45 }, // Index 0 (LEFT)
+    { x: 1000, y: 0, r: 45 },   // Index 1 (RIGHT)
+    { x: 0, y: -1000, r: 0 },   // Index 2 (UP)
+    { x: 0, y: 1000, r: 0 },    // Index 3 (DOWN)
     { x: -500, y: 500, r: -25 },
-    { x: 500, y: -500, r: 25 },
-    { x: -500, y: -500, r: -25 }
+    { x: 500, y: 500, r: 25 },
+    { x: -500, y: -500, r: -25 },
+    { x: 500, y: -500, r: 25 }
   ];
 
   const fly = flyDirs[choiceIdx] || flyDirs[0];
@@ -1480,7 +1482,7 @@ function ensureDeckResponsesInit(deckId) {
 }
 
 /* ==========================================================================
-   MODE 3: RESULTS MODULE (SUPPORTS 8 CHOICES & TYPED RESPONSES TAB)
+   MODE 3: RESULTS MODULE
    ========================================================================== */
 
 function initResultsEvents() {
@@ -1590,7 +1592,7 @@ function renderResultsDashboard(targetDeckId) {
     totalResponses += qTotal;
 
     if (qTotal > 0) {
-      const topChoicePct = ((res[0] || 0) / qTotal) * 100;
+      const topChoicePct = ((res[1] || 0) / qTotal) * 100; // Right/Yes choice pct
       if (topChoicePct > highestStatPct) {
         highestStatPct = topChoicePct;
         highestStatCard = card;
@@ -1621,13 +1623,11 @@ function renderResultsDashboard(targetDeckId) {
   renderTypedResponsesTab(deckCards, deckId);
 }
 
-// REQUIREMENT 2: Typed Responses List Tab View Renderer
 function renderTypedResponsesTab(deckCards, deckId) {
   const container = document.getElementById('typed-responses-container');
   container.innerHTML = '';
 
   const records = state.participantRecordsByDeck[deckId] || [];
-  let typedCount = 0;
 
   deckCards.forEach((card, idx) => {
     const cleanQ = card.text.replace(/<[^>]*>?/gm, '');
@@ -1638,7 +1638,6 @@ function renderTypedResponsesTab(deckCards, deckId) {
     records.forEach(rec => {
       const typedText = rec.typedTexts ? rec.typedTexts[card.id] : null;
       if (typedText && typedText.trim() !== '') {
-        typedCount++;
         itemsHtml += `
           <div class="typed-item-row">
             <span class="typed-item-user">👤 ${rec.respondentId}</span>
@@ -1680,8 +1679,8 @@ function openQuestionRankingModal(rankType) {
     const choices = card.choices || DEFAULT_CHOICES.slice(0, card.answerCount || 2);
     let qTotal = 0;
     choices.forEach((_, cIdx) => { qTotal += (res[cIdx] || 0); });
-    const topPct = qTotal > 0 ? Math.round(((res[0] || 0) / qTotal) * 100) : 0;
-    return { card, originalIdx: idx, topPct, total: qTotal, topChoice: choices[0] };
+    const topPct = qTotal > 0 ? Math.round(((res[1] || 0) / qTotal) * 100) : 0;
+    return { card, originalIdx: idx, topPct, total: qTotal, topChoice: choices[1] || choices[0] };
   });
 
   if (rankType === 'highest') {
