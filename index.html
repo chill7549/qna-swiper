@@ -62,6 +62,15 @@
               <button class="small-btn" id="btn-save-as-preset" title="현재 덱을 새 이름의 덱으로 추가 저장">➕ 새 덱으로 저장</button>
               <button class="small-btn" id="btn-rename-preset" title="선택한 덱 이름 변경">✏️ 이름 변경</button>
             </div>
+            <!-- Multi-Device Share & Export Bar -->
+            <div class="preset-action-btns share-bar">
+              <button class="small-btn highlight-btn" id="btn-share-deck-link" title="다른 기기에서도 즉시 열 수 있는 공유 링크 생성">🔗 덱 공유 링크 생성</button>
+              <button class="small-btn" id="btn-export-deck-json" title="JSON 파일 내보내기">📥 내보내기</button>
+              <label class="small-btn tool-file-btn" title="JSON 파일 불러오기">
+                📤 불러오기
+                <input type="file" id="import-deck-json-input" accept=".json" style="display:none;">
+              </label>
+            </div>
           </div>
 
           <!-- Card List -->
@@ -132,11 +141,23 @@
 
             <div class="tool-divider"></div>
 
-            <!-- Per-Card 4-Way Custom Answers Config (2~4 choices) -->
+            <!-- Per-Card 4-Way & 5~8 Choice Answers Config (2~8 choices) -->
             <div class="tool-group">
               <span class="tool-label">이 카드의 대답 개수</span>
-              <input type="range" id="answer-count-slider" min="2" max="4" value="2" title="이 카드의 대답 문구 개수 슬라이더 (2~4개)">
+              <input type="range" id="answer-count-slider" min="2" max="8" value="2" title="이 카드의 대답 문구 개수 슬라이더 (2~8개)">
               <span id="answer-count-val" class="slider-badge">2개</span>
+            </div>
+
+            <div class="tool-divider"></div>
+
+            <!-- Open-Ended Typing Response Box Toggle -->
+            <div class="tool-group">
+              <span class="tool-label">대답 텍스트 박스</span>
+              <label class="toggle-switch" title="대답자가 직접 타이핑할 수 있는 대답 입력창 ON/OFF">
+                <input type="checkbox" id="toggle-text-response">
+                <span class="toggle-slider"></span>
+              </label>
+              <span id="text-response-val" class="slider-badge">OFF</span>
             </div>
 
             <div class="tool-divider"></div>
@@ -163,9 +184,9 @@
             </div>
           </div>
 
-          <!-- Answer Customization Secondary Panel -->
+          <!-- Answer Customization Secondary Panel (Supports 2~8 Choices) -->
           <div class="answers-config-bar" id="answers-config-bar">
-            <!-- Dynamically rendered answer config items (2 to 4 choices) -->
+            <!-- Dynamically rendered answer config items (2 to 8 choices) -->
           </div>
 
           <!-- Card Stage Frame -->
@@ -190,6 +211,11 @@
               <div class="card-content-area">
                 <div class="card-question-text" id="editor-card-text" contenteditable="true" spellcheck="false">
                   탕수육 부먹 vs 찍먹, 당신의 선택은?
+                </div>
+
+                <!-- Open-Ended Typing Textbox Preview in Editor -->
+                <div class="editor-textbox-preview hidden" id="editor-textbox-preview">
+                  ✍️ [대답 텍스트 박스 ON] 대답자가 직접 타이핑할 수 있는 입력창이 노출됩니다.
                 </div>
               </div>
 
@@ -239,7 +265,7 @@
           <!-- Interactive 3D Card Stack Container -->
           <div class="stack-viewport" id="respondent-stack-viewport">
             <div class="card-stack" id="respondent-card-stack">
-              <!-- Dynamically populated cards for swiping -->
+              <!-- Dynamically populated cards for swiping / box selecting -->
             </div>
 
             <!-- Empty / Completed Deck View -->
@@ -254,13 +280,13 @@
             </div>
           </div>
 
-          <!-- Respondent Action Controls (2 to 4 Choice Buttons) -->
+          <!-- Respondent Action Controls (Supports 2 to 8 Choice Buttons & Box Grids) -->
           <div class="swipe-controls" id="respondent-swipe-controls">
-            <!-- Dynamically populated action buttons -->
+            <!-- Dynamically populated action buttons / box choices -->
           </div>
 
           <div class="keyboard-guide" id="keyboard-guide-text">
-            <span>💡 팁: 키보드 <strong>← / → / ↑ / ↓</strong> 방향키로도 조작 가능합니다!</span>
+            <span>💡 팁: 2~4개 선택 카드는 키보드 <strong>← / → / ↑ / ↓</strong> 방향키로도 조작 가능합니다!</span>
           </div>
         </div>
       </section>
@@ -314,6 +340,7 @@
               <button class="res-tab-btn" data-tab="participants">👥 대답자별 응답 표</button>
               <button class="res-tab-btn" data-tab="cards">🖼️ 상세 카드별 보기</button>
               <button class="res-tab-btn" data-tab="custom">🧮 맞춤 합산 분석</button>
+              <button class="res-tab-btn" data-tab="typed">✍️ 자유 텍스트 대답 모음</button>
             </div>
             <div class="results-actions">
               <button class="secondary-btn" id="btn-add-demo-data">⚡ 시뮬레이션 응답 추가 (10명)</button>
@@ -385,6 +412,19 @@
                   <div id="my-answer-comparison-list">
                     <!-- Comparison list -->
                   </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB 5: TYPED OPEN-ENDED TEXT RESPONSES VIEW -->
+            <div class="tab-pane" id="tab-typed">
+              <div class="typed-responses-box">
+                <div class="typed-header">
+                  <h3>✍️ 대답자 직접 작성 텍스트 답변 목록</h3>
+                  <span>질문 카드별 주관식 타이핑 답변 현황</span>
+                </div>
+                <div class="typed-list-container" id="typed-responses-container">
+                  <!-- Dynamically rendered typed responses per question -->
                 </div>
               </div>
             </div>
